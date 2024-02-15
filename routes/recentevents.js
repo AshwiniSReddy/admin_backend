@@ -4,12 +4,18 @@ const Admin = require('../models/Admin'); // Ensure this path matches the locati
 
 // GET route to fetch upcoming events
 router.get('/', async (req, res) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Reset time to midnight for today's date comparison, if necessary
+  const todayUTC = new Date();
+  todayUTC.setUTCHours(0, 0, 0, 0); // Reset time to midnight in UTC
 
+  console.log(todayUTC); // Log the UTC date for verification
   try {
-    const upcomingEvents = await Admin.find({
-      fromDate: { $gt: today } // Select documents where fromDate is after today
+     // Modify the query to fetch events that are ongoing or upcoming
+     const upcomingEvents = await Admin.find({
+      $or: [
+        { fromDate: { $gte: todayUTC } }, // Events that start in the future
+        { fromDate: { $lte: todayUTC }, toDate: { $gte: todayUTC } } // Ongoing events (events that have started but not yet ended)
+      ]
+     
     });
 
     res.json(upcomingEvents); // Send the filtered documents as a JSON response
