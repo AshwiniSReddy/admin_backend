@@ -36,7 +36,7 @@ const AdminSchema = new mongoose.Schema({
   
     preference: Number, // Assuming preference is a numerical value
     // Consider adding any other fields here as needed
-});
+},{ timestamps: true });
 
 const Admin = mongoose.model('Admin', AdminSchema);
 
