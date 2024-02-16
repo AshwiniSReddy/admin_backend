@@ -19,7 +19,7 @@ const authRoute = require("./routes/auth");
 const passportSetup=require('./passport/passport')
 const { get } = require("mongoose");
 
-
+const latestThree=require('./routes/latestThee')
 const recentEvents=require('./routes/recentevents')
 
 
@@ -72,6 +72,7 @@ app.use('/api/edit',edit)
 app.use('/api/delete',deletedata)
 app.use('/api/register',register)
 app.use('/api/login',login)
+app.use('/api/latestThree',latestThree)
 app.use("/auth", authRoute);
 
 
