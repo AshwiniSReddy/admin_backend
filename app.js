@@ -15,7 +15,7 @@ const login=require('./routes/login')
 const passport=require('passport')
 const cookieSession=require('cookie-session')
 const authRoute = require("./routes/auth");
-
+const fetchwithId=require('./routes/fetchbyid')
 const passportSetup=require('./passport/passport')
 const { get } = require("mongoose");
 
@@ -74,7 +74,7 @@ app.use('/api/register',register)
 app.use('/api/login',login)
 app.use('/api/latestThree',latestThree)
 app.use("/auth", authRoute);
-
+app.use('/api/fetchbyid',fetchwithId)
 
 app.listen(process.env.PORT,async ()=>{
     await connectDB(); 
