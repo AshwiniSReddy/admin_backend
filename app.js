@@ -73,7 +73,7 @@ app.use('/api/delete',deletedata)
 app.use('/api/register',register)
 app.use('/api/login',login)
 app.use('/api/latestThree',latestThree)
-app.use("/api/auth", authRoute);
+app.use("/auth", authRoute);
 
 
 app.listen(process.env.PORT,async ()=>{
