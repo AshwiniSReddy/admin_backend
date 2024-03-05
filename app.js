@@ -53,7 +53,7 @@ app.use(
 
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: "http://dashboardadmin.s3-website.ap-south-1.amazonaws.com",
 		methods: "GET,POST,PUT,DELETE",
 		credentials: true,
 	})
