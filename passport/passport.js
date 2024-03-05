@@ -27,7 +27,7 @@ const dotenv = require("dotenv")
 passport.use(new GoogleStratergy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://ec2-13-233-173-240.ap-south-1.compute.amazonaws.com",
+    callbackURL: "/api/auth/google/callback",
     scope: ["profile", "email"],
   },
   function(accessToken, refreshToken, profile, done) {
