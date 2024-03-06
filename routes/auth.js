@@ -32,7 +32,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: 'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
+		successRedirect: 'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com/Dashboard',
 		failureRedirect: "/login/failed",
 	})
 );
