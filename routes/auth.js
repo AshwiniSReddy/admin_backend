@@ -3,6 +3,7 @@ const passport = require("passport");
 const dotenv = require("dotenv")
 dotenv.config();
 
+console.log("WIthin auth")
 console.log("-----",process.env.CLIENT_URL)
 router.get("/login/success", (req, res) => {
 	
@@ -33,7 +34,7 @@ router.get(
 
 	passport.authenticate("google", {
 		successRedirect: process.env.CLIENT_URL,
-		failureRedirect: "/login/failed",
+		failureRedirect: "https://paramscience.org/",
 	})
 );
 
