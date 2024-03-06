@@ -33,7 +33,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: 'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
+		successRedirect: process.env.CLIENT_URL,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
