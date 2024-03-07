@@ -3,7 +3,7 @@
 // const router = express.Router();
 // const upload = require('../multer/multer'); // Adjust the path according to your project structure
 // const Admin = require('../models/Admin'); // Adjust the path according to your project structure
-// const moment = require('moment');
+
 // // POST route for /admin
 // router.post('/', upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'video', maxCount: 1 }]), async (req, res) => {
 //     try {
@@ -47,7 +47,15 @@ const upload = require('../multer/multer'); // Ensure the path is correct based 
 const Admin = require('../models/Admin'); // Ensure the path is correct based on your project structure
 const Cloudinary=require('../Cloudinary/Cloudinary')
 const moment = require('moment');
+const Aws = require('aws-sdk')   
+const fs = require('fs'); // Required to read files from the filesystem
+const dotenv = require("dotenv")
+dotenv.config();
 
+const s3 = new Aws.S3({
+    accessKeyId:process.env.AWS_ACCESS_KEY_ID,              // accessKeyId that is stored in .env file
+    secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY       // secretAccessKey is also store in .env file
+})
 // POST route for /admin
 router.post('/', upload.single('photoVideo'), async (req, res) => {
     try {
@@ -57,30 +65,45 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
         }
         
         const photoVideo = req.file ? req.file.path : undefined;
-        console.log(req.body)
-        console.log(photoVideo)
+        // console.log(req.body)
+        // console.log(photoVideo)
         // const photoVideo = req.files['photoVideo'] ? req.files['photoVideo'][0].path : undefined;
-        const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
+        // const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
             
-            folder: "posts"},
-            function(error, result) {
-                if (error) {
-                    console.log(error)
-                }
-                console.log(result);
-                var data=result;
-            }
-        )
+        //     folder: "posts"},
+        //     function(error, result) {
+        //         if (error) {
+        //             console.log(error)
+        //         }
+        //         console.log(result);
+        //         var data=result;
+        //     }
+        // )
+
+        const params = {
+            Bucket:process.env.S3_BUCKET_NAME,      // bucket that we made earlier
+            Key: req.file.originalname, // Name of the image
+            Body: fs.createReadStream(req.file.path), // Create a read stream from the file path
+            // ACL: "public-read-write", // defining the permissions to get the public link
+            ContentType: req.file.mimetype // Use the file's mimetype from multer
+        };
+  
+        
+
 
         const { category,title, tagline, description, bookMyShowUrl, fromDate, toDate, time, preference } = req.body;
-
-        // Create new Admin entry with all fields
+      s3.upload(params,async (error,data)=>{
+            if(error){
+                console.log("Error uploading file: ", error);
+                res.status(500).send({"err":error})  // if we get any error while uploading error message will be returned.
+            }else{
+                // Create new Admin entry with all fields
         const newAdminEntry = new Admin({
             category,
             title,
             tagline,
             description,
-            photoVideo:uploadedImage.secure_url, // Adjusted to match the schema
+            photoVideo:data.Location, // Adjusted to match the schema
             bookMyShowUrl,
             fromDate, // Ensure that the date formats are compatible with your database
             toDate, // Same note as above
@@ -94,6 +117,10 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
             message: 'Data and file saved successfully!',
             data: newAdminEntry,
         });
+            }
+      
+        
+    })
     } catch (error) {
         console.error(error);
         res.status(500).json({
