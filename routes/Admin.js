@@ -45,9 +45,8 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../multer/multer'); // Ensure the path is correct based on your project structure
 const Admin = require('../models/Admin'); // Ensure the path is correct based on your project structure
-// const Cloudinary=require('../Cloudinary/Cloudinary')
+const Cloudinary=require('../Cloudinary/Cloudinary')
 const moment = require('moment');
-
 
 // POST route for /admin
 router.post('/', upload.single('photoVideo'), async (req, res) => {
@@ -57,22 +56,21 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
             req.body.time = req.body.time.find(t => t); // This finds the first non-empty string in the array
         }
         
-        // const photoVideo = req.file ? req.file.path : undefined;
-        const photoVideo = req.file.location;
+        const photoVideo = req.file ? req.file.path : undefined;
         console.log(req.body)
         console.log(photoVideo)
         // const photoVideo = req.files['photoVideo'] ? req.files['photoVideo'][0].path : undefined;
-        // const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
+        const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
             
-        //     folder: "posts"},
-        //     function(error, result) {
-        //         if (error) {
-        //             console.log(error)
-        //         }
-        //         console.log(result);
-        //         var data=result;
-        //     }
-        // )
+            folder: "posts"},
+            function(error, result) {
+                if (error) {
+                    console.log(error)
+                }
+                console.log(result);
+                var data=result;
+            }
+        )
 
         const { category,title, tagline, description, bookMyShowUrl, fromDate, toDate, time, preference } = req.body;
 
@@ -82,7 +80,7 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
             title,
             tagline,
             description,
-            photoVideo:photoVideo, // Adjusted to match the schema
+            photoVideo:uploadedImage.secure_url, // Adjusted to match the schema
             bookMyShowUrl,
             fromDate, // Ensure that the date formats are compatible with your database
             toDate, // Same note as above
