@@ -48,6 +48,7 @@ const Admin = require('../models/Admin'); // Ensure the path is correct based on
 // const Cloudinary=require('../Cloudinary/Cloudinary')
 const moment = require('moment');
 
+
 // POST route for /admin
 router.post('/', upload.single('photoVideo'), async (req, res) => {
     try {
@@ -56,7 +57,8 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
             req.body.time = req.body.time.find(t => t); // This finds the first non-empty string in the array
         }
         
-        const photoVideo = req.file ? req.file.path : undefined;
+        // const photoVideo = req.file ? req.file.path : undefined;
+        const photoVideo = req.file.location;
         console.log(req.body)
         console.log(photoVideo)
         // const photoVideo = req.files['photoVideo'] ? req.files['photoVideo'][0].path : undefined;
