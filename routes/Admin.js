@@ -3,7 +3,7 @@
 // const router = express.Router();
 // const upload = require('../multer/multer'); // Adjust the path according to your project structure
 // const Admin = require('../models/Admin'); // Adjust the path according to your project structure
-
+// const moment = require('moment');
 // // POST route for /admin
 // router.post('/', upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'video', maxCount: 1 }]), async (req, res) => {
 //     try {
@@ -45,7 +45,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../multer/multer'); // Ensure the path is correct based on your project structure
 const Admin = require('../models/Admin'); // Ensure the path is correct based on your project structure
-const Cloudinary=require('../Cloudinary/Cloudinary')
+// const Cloudinary=require('../Cloudinary/Cloudinary')
 const moment = require('moment');
 
 // POST route for /admin
@@ -60,17 +60,17 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
         console.log(req.body)
         console.log(photoVideo)
         // const photoVideo = req.files['photoVideo'] ? req.files['photoVideo'][0].path : undefined;
-        const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
+        // const uploadedImage = await Cloudinary.uploader.upload(photoVideo, {
             
-            folder: "posts"},
-            function(error, result) {
-                if (error) {
-                    console.log(error)
-                }
-                console.log(result);
-                var data=result;
-            }
-        )
+        //     folder: "posts"},
+        //     function(error, result) {
+        //         if (error) {
+        //             console.log(error)
+        //         }
+        //         console.log(result);
+        //         var data=result;
+        //     }
+        // )
 
         const { category,title, tagline, description, bookMyShowUrl, fromDate, toDate, time, preference } = req.body;
 
@@ -80,7 +80,7 @@ router.post('/', upload.single('photoVideo'), async (req, res) => {
             title,
             tagline,
             description,
-            photoVideo:uploadedImage.secure_url, // Adjusted to match the schema
+            photoVideo:photoVideo, // Adjusted to match the schema
             bookMyShowUrl,
             fromDate, // Ensure that the date formats are compatible with your database
             toDate, // Same note as above
