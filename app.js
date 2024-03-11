@@ -18,11 +18,11 @@ const authRoute = require("./routes/auth");
 const fetchwithId=require('./routes/fetchbyid')
 const passportSetup=require('./passport/passport')
 const { get } = require("mongoose");
-
+const Createalert=require('./routes/createAlert')
 const latestThree=require('./routes/latestThee')
 const recentEvents=require('./routes/recentevents')
-
-
+const getAlert=require('./routes/getAlert');
+const deletealert=require('./routes/deleteAlert')
 const cron = require('node-cron');
 
 const app=express();
@@ -88,6 +88,10 @@ app.use('/api/login',login)
 app.use('/api/latestThree',latestThree)
 // app.use("/api/auth", authRoute);
 app.use('/api/fetchbyid',fetchwithId)
+app.use('/api/alert',Createalert)
+app.use('/api/deletealert',deletealert)
+app.use('/api/getAlert',getAlert)
+
 
 app.listen(process.env.PORT,async ()=>{
     await connectDB(); 
