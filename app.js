@@ -27,7 +27,8 @@ const cron = require('node-cron');
 
 const app=express();
 app.use(bodyParser.json()); // for parsing application/json
-
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 const fs = require('fs');
 const path = require('path');
 
@@ -41,8 +42,7 @@ fs.mkdirSync(uploadsDir, { recursive: true });
 
 
 dotenv.config();
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+
 app.use(
     cookieSession({
         name: "session",
