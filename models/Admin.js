@@ -28,6 +28,7 @@ const AdminSchema = new mongoose.Schema({
     description: String,
     // Assuming photoVideo is a URL to a photo or video, hence String type
     photoVideo: String,
+    photoPortrait:String,
     // URL for booking or more details, also a String
     bookMyShowUrl: String,
     // Adding fromDate, toDate, and preference to match the frontend fields
