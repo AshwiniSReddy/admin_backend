@@ -64,13 +64,7 @@ const corsOptionsDelegate = function (req, callback) {
   
   app.use(cors(corsOptionsDelegate));
 
-  app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://paramscience.org");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    next();
-  });
-  
+ 
 
 // app.use(
 // 	cors({
