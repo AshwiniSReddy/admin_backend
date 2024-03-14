@@ -52,7 +52,7 @@ app.use(
 );
 const corsOptionsDelegate = function (req, callback) {
     var corsOptions;
-    let allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000','https://paramscience.org/','http://dashboardadmin.s3-website.ap-south-1.amazonaws.com','https://admindashboard.paramscience.org']; // You can add more origins as needed
+    let allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000','https://paramscience.org','http://dashboardadmin.s3-website.ap-south-1.amazonaws.com','https://admindashboard.paramscience.org']; // You can add more origins as needed
     
     if (allowedOrigins.indexOf(req.header('Origin')) !== -1) {
       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true }; // Reflect (enable) the requested origin in the CORS response
