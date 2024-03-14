@@ -10,7 +10,9 @@ router.get('/', async (req, res) => {
 
         if (existingAlert) {
             // If an existing alert is found, return it
+            res.header('Access-Control-Allow-Origin', '*');
             res.status(200).json({
+
                 message: 'Alert found successfully',
                 data: existingAlert,
             });

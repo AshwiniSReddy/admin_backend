@@ -50,7 +50,10 @@ app.use(
         maxAge: 24 * 60 * 60 * 1000 // Corrected to 24 hours in milliseconds
     })
 );
-
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 const corsOptionsDelegate = function (req, callback) {
     var corsOptions;
     let allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000','https://paramscience.org','https://admindashboard.paramscience.org','http://dashboardadmin.s3-website.ap-south-1.amazonaws.com']; // You can add more origins as needed
