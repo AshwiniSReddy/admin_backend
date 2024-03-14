@@ -60,6 +60,7 @@ const corsOptionsDelegate = function (req, callback) {
     
     if (allowedOrigins.indexOf(req.header('Origin')) !== -1) {
       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true }; // Reflect (enable) the requested origin in the CORS response
+     
     } else {
       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true }; // Reflect (enable) the requested origin in the CORS response
       // corsOptions = { origin: false }; // Disable CORS for this request
