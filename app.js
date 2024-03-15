@@ -62,8 +62,8 @@ const corsOptionsDelegate = function (req, callback) {
       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
      
     } else {
-      // corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
-      corsOptions = { origin: false }; // Disable CORS for this request
+      corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
+      // corsOptions = { origin: false }; // Disable CORS for this request
     }
     callback(null, corsOptions); // Callback expects two parameters: error and options
   };
