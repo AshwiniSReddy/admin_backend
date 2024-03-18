@@ -77,6 +77,7 @@ const corsOptionsDelegate = function (req, callback) {
     'http://localhost:3000',
     'https://paramscience.org',
     'https://admindashboard.paramscience.org',
+    'http://ec2-13-233-173-240.ap-south-1.compute.amazonaws.com',
     'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
     'https://www.paramscience.org'
   ]; // Your list of allowed origins
@@ -86,7 +87,7 @@ const corsOptionsDelegate = function (req, callback) {
     // If the origin is in the allowed list, enable CORS for that request
     corsOptions = {
       origin: true, // Reflects the request's origin, as it's allowed
-      methods: "GET,POST,PUT,DELETE",
+      methods: "GET,POST,PUT,PATCH,DELETE",
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization']
     };
