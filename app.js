@@ -93,7 +93,7 @@ const corsOptionsDelegate = function (req, callback) {
   } else {
     // Optionally, you could choose to disable CORS for requests not coming from an allowed origin
     // by setting origin to false. This would block any requests not coming from your specified origins.
-    // corsOptions = { origin: false }; // Uncomment this line to enforce the restriction
+    corsOptions = { origin: false }; // Uncomment this line to enforce the restriction
   }
   callback(null, corsOptions); // Callback expects two parameters: error and options
 };
