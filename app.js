@@ -54,21 +54,52 @@ app.use(
 //   res.header('Access-Control-Allow-Origin', '*');
 //   next();
 // });
-const corsOptionsDelegate = function (req, callback) {
-    var corsOptions;
-    let allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000','https://paramscience.org','https://admindashboard.paramscience.org','http://dashboardadmin.s3-website.ap-south-1.amazonaws.com','https://www.paramscience.org']; // You can add more origins as needed
+// const corsOptionsDelegate = function (req, callback) {
+//     var corsOptions;
+//     let allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:3000','https://paramscience.org','https://admindashboard.paramscience.org','http://dashboardadmin.s3-website.ap-south-1.amazonaws.com','https://www.paramscience.org']; // You can add more origins as needed
     
-    if (allowedOrigins.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
+//     if (allowedOrigins.indexOf(req.header('Origin')) !== -1) {
+//       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
      
-    } else {
-      corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
-      // corsOptions = { origin: false }; // Disable CORS for this request
-    }
-    callback(null, corsOptions); // Callback expects two parameters: error and options
-  };
+//     } else {
+//       corsOptions = { origin: true, methods: "GET,POST,PUT,DELETE", credentials: true , allowedHeaders: ['Content-Type', 'Authorization']}; // Reflect (enable) the requested origin in the CORS response
+//       // corsOptions = { origin: false }; // Disable CORS for this request
+//     }
+//     callback(null, corsOptions); // Callback expects two parameters: error and options
+//   };
   
-  app.use(cors(corsOptionsDelegate));
+//   app.use(cors(corsOptionsDelegate));
+
+
+const corsOptionsDelegate = function (req, callback) {
+  let allowedOrigins = [
+    process.env.CLIENT_URL,
+    'http://localhost:3000',
+    'https://paramscience.org',
+    'https://admindashboard.paramscience.org',
+    'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
+    'https://www.paramscience.org'
+  ]; // Your list of allowed origins
+  
+  let origin = req.header('Origin');
+  if (allowedOrigins.includes(origin)) {
+    // If the origin is in the allowed list, enable CORS for that request
+    corsOptions = {
+      origin: true, // Reflects the request's origin, as it's allowed
+      methods: "GET,POST,PUT,DELETE",
+      credentials: true,
+      allowedHeaders: ['Content-Type', 'Authorization']
+    };
+  } else {
+    // Optionally, you could choose to disable CORS for requests not coming from an allowed origin
+    // by setting origin to false. This would block any requests not coming from your specified origins.
+    // corsOptions = { origin: false }; // Uncomment this line to enforce the restriction
+  }
+  callback(null, corsOptions); // Callback expects two parameters: error and options
+};
+
+app.use(cors(corsOptionsDelegate));
+
 
 // Enable CORS for all origins
 // app.use(cors());
