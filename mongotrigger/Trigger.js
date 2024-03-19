@@ -24,7 +24,12 @@ async function triggerWorkflow() {
     const response = await axios.post(url, body, { headers });
     console.log('Workflow triggered:', response.data);
   } catch (error) {
-    console.error('Error triggering workflow:', error);
+    // console.error('Error triggering workflow:', error);
+    console.error('Error triggering workflow:', error.message);
+    if (error.response) {
+      console.error('Response status:', error.response.status);
+      console.error('Response data:', error.response.data);
+    }
   }
 }
 
