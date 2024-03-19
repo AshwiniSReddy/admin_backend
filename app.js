@@ -79,7 +79,8 @@ const corsOptionsDelegate = function (req, callback) {
     'https://admindashboard.paramscience.org',
     'http://ec2-13-233-173-240.ap-south-1.compute.amazonaws.com',
     'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
-    'https://www.paramscience.org'
+    'https://www.paramscience.org',
+    'https://admin.dashboard.paramscience.org/'
   ]; // Your list of allowed origins
   
   let origin = req.header('Origin');
