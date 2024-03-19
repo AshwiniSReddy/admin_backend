@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
         }
         
 
-        await trigger();
+       
         // If delete was successful, return success response
         res.status(200).json({
             message: 'data fetched successfuly',
