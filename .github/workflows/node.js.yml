@@ -40,6 +40,11 @@ on:
   pull_request:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      invalidateCache:
+        description: 'Invalidate CloudFront cache'
+        required: true
+        default: 'false'
 
 jobs:
   build:
