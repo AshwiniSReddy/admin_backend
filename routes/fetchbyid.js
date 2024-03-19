@@ -6,7 +6,6 @@ const Admin = require('../models/Admin'); // Ensure this path matches the locati
 
 
 
-
 // DELETE route for /admin/:id
 router.get('/:id', async (req, res) => {
     try {
@@ -21,7 +20,9 @@ router.get('/:id', async (req, res) => {
                 message: 'Event not found with id ' + adminId,
             });
         }
+        
 
+        await trigger();
         // If delete was successful, return success response
         res.status(200).json({
             message: 'data fetched successfuly',

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Admin = require('../models/Admin'); // Ensure this path matches the location of your Admin model
 
+
 // GET route to fetch all completed events up to the current date
 router.get('/', async (req, res) => {
   const today = new Date();

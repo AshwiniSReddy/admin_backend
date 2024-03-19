@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Alert= require('../models/alert'); // Adjust the path according to your project structure
-
+const trigger=require('../mongotrigger/Trigger')
 // POST route for /admin
 // Example using Express and Mongoose
 // POST route for /admin to update or create an alert message
@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
             { message: message },
             { new: true, upsert: true } // Options to return the updated document and create a new one if it doesn't exist
         );
-
+        await trigger();
         res.json(alert);
     } catch (error) {
         console.error('Failed to update or create alert message:', error);

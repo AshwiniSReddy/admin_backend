@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Alert = require('../models/alert'); // Adjust the path according to your project structure
-
+const trigger=require('../mongotrigger/Trigger')
 // GET route for /admin
 router.get('/', async (req, res) => {
     try {
         // Attempt to find the existing alert
         const existingAlert = await Alert.findOne();
-
+        await trigger();
         if (existingAlert) {
             // If an existing alert is found, return it
             res.header('Access-Control-Allow-Origin', '*');

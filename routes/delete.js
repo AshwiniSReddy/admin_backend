@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../multer/multer'); // Ensure the path is correct based on your project structure
 const Admin = require('../models/Admin'); // Ensure this path matches the location of your Admin model
-
+const trigger=require('../mongotrigger/Trigger')
 
 
 
@@ -21,7 +21,7 @@ router.delete('/:id', async (req, res) => {
                 message: 'Admin not found with id ' + adminId,
             });
         }
-
+        await trigger();
         // If delete was successful, return success response
         res.status(200).json({
             message: 'Admin successfully deleted',

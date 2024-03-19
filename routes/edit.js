@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../multer/multer'); // Ensure the path is correct based on your project structure
 const Admin = require('../models/Admin'); // Ensure this path matches the location of your Admin model
-
+const trigger=require('../mongotrigger/Trigger')
 
 router.patch('/:id', upload.single('photoVideo'), async (req, res) => {try {
   const adminId = req.params.id;
@@ -31,7 +31,7 @@ if (Array.isArray(req.body.time)) {
   if (!updatedAdmin) {
     return res.status(404).send('The admin with the given ID was not found.');
   }
-
+  await trigger();
   res.send(updatedAdmin);
 } catch (error) {
   console.error('Error updating the admin:', error);

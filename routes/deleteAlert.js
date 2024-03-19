@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Alert= require('../models/alert'); // Adjust the path according to your project structure
-
+const trigger=require('../mongotrigger/Trigger')
 
 
 
@@ -14,9 +14,11 @@ router.delete('/', async (req, res) => {
 
         if (result) {
             res.json({ message: 'Alert message deleted successfully.' });
+            await trigger();
         } else {
             // If no document was found (and thus none deleted), inform the requester
             res.status(404).json({ message: 'No alert message found to delete.' });
+            await trigger();
         }
     } catch (error) {
         console.error('Failed to delete alert message:', error);
