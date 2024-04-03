@@ -24,6 +24,10 @@ router.patch('/:id', upload.single('photoVideo'), async (req, res) => {
       // If 'time' is an array, use only the first element
       req.body.time = req.body.time[0];
     }
+    if (Array.isArray(req.body.endTime)) {
+      // If 'time' is an array, use only the first element
+      req.body.time = req.body.endTime[0];
+    }
 
 
     // Find the document by ID and update it

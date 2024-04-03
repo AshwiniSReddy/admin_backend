@@ -24,6 +24,7 @@ const AdminSchema = new mongoose.Schema({
     toDate: Date,
     title: String,
     time: String,
+    endTime:String,
     tagline: String,
     description: String,
     // Assuming photoVideo is a URL to a photo or video, hence String type

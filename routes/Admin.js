@@ -89,6 +89,9 @@ router.post('/', uploadFields, async (req, res) => {
         if (Array.isArray(req.body.time)) {
             req.body.time = req.body.time.find(t => t); // This finds the first non-empty string in the array
         }
+        if (Array.isArray(req.body.endTime)) {
+            req.body.endTime = req.body.endTime.find(t => t); // This finds the first non-empty string in the array
+        }
         
         const photoVideoFile = req.files['photoVideo'] ? req.files['photoVideo'][0] : undefined;
         const photoPortraitFile = req.files['photoPortrait'] ? req.files['photoPortrait'][0] : undefined;
@@ -110,6 +113,7 @@ router.post('/', uploadFields, async (req, res) => {
             fromDate, // Ensure that the date formats are compatible with your database
             toDate, // Same note as above
             time, // Assuming you've added a time field to your model
+            endTime,
             preference, // Ensure this is captured as a number in your model
         });
 
