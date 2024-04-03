@@ -99,7 +99,7 @@ router.post('/', uploadFields, async (req, res) => {
         const photoVideoLocation = photoVideoFile ? await s3Upload(photoVideoFile) : undefined;
         const photoPortraitLocation = photoPortraitFile ? await s3Upload(photoPortraitFile) : undefined;
 
-        const { category, title, tagline, description, bookMyShowUrl, fromDate, toDate, time, preference } = req.body;
+        const { category, title, tagline, description, bookMyShowUrl, fromDate, toDate, time,endTime, preference } = req.body;
 
         // Create new Admin entry with all fields
         const newAdminEntry = new Admin({
