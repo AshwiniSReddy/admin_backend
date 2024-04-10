@@ -1,21 +1,3 @@
-// const mongoose = require('mongoose');
-
-// const AdminSchema=new mongoose.Schema({
-//     eventUpdate:String,
-//     media:{
-//         photo:String,
-//         vedio:String,
-//     },
-//     title:String,
-//     tagline:String,
-//     description:String
-
-// })
-
-// const Admin = mongoose.model('Admin', AdminSchema);
-
-// module.exports = Admin;
-
 const mongoose = require('mongoose');
 
 const AdminSchema = new mongoose.Schema({
