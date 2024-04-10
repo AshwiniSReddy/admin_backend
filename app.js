@@ -5,27 +5,43 @@ const cors= require("cors")
 const bodyParser = require('body-parser');
 const upload=require('./multer/multer')
 const Admin_main = require('./models/Admin'); // Import the Feedback model
+// const Admin_test=require('./models/AdminTest')
 const connectDB=require("./connectDb/connect");
 const Admin_Route=require('./routes/Admin')
+
 const  history=require('./routes/history')
 const edit=require('./routes/edit')
+
 const deletedata=require('./routes/delete')
+
 const register=require('./routes/register')
 const login=require('./routes/login')
 const passport=require('passport')
 const cookieSession=require('cookie-session')
 const authRoute = require("./routes/auth");
 const fetchwithId=require('./routes/fetchbyid')
+
 const passportSetup=require('./passport/passport')
 const { get } = require("mongoose");
 const Createalert=require('./routes/createAlert')
 const latestThree=require('./routes/latestThee')
+
 const recentEvents=require('./routes/recentevents')
+
 const getAlert=require('./routes/getAlert');
 const deletealert=require('./routes/deleteAlert')
 const cron = require('node-cron');
 // const FormDetails=require('./routes/Formdetails/InsertData')
 const GetContactDetails=require('./routes/Formdetails/Getcontactdetails')
+
+//test
+const Admin_test=require('./routes/AdminTest/Admin')
+const recentEvents_test=require('./routes/AdminTest/recentevents')
+const latestThree_test=require('./routes/AdminTest/latestThee')
+const fetchwithId_test=require('./routes/AdminTest/fetchbyid')
+const deletedata_test=require('./routes/AdminTest/delete')
+const edit_test=require('./routes/AdminTest/edit')
+const history_test=require('./routes/AdminTest/history')
 
 const app=express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -106,6 +122,24 @@ app.use('/api/alert',Createalert)
 app.use('/api/deletealert',deletealert)
 app.use('/api/getAlert',getAlert)
 app.use('/api/get-form-submissions',GetContactDetails)
+
+//test
+
+app.use("/api/admin_test",Admin_test);
+app.use('/api/history_test',history_test)
+app.use('/api/recentEvents_test',recentEvents_test)
+app.use('/api/edit_test',edit_test)
+app.use('/api/delete_test',deletedata_test)
+
+app.use('/api/latestThree_test',latestThree_test)
+
+
+
+app.use('/api/fetchbyid_test',fetchwithId_test)
+
+
+
+
 
 app.listen(process.env.PORT,async ()=>{
     await connectDB(); 
