@@ -33,6 +33,7 @@ const deletealert=require('./routes/deleteAlert')
 const cron = require('node-cron');
 // const FormDetails=require('./routes/Formdetails/InsertData')
 const GetContactDetails=require('./routes/Formdetails/Getcontactdetails')
+const postContactDetails=require('./routes/Formdetails/InsertData')
 
 //test
 const Admin_test=require('./routes/AdminTest/Admin')
@@ -121,6 +122,7 @@ app.use('/api/fetchbyid',fetchwithId)
 app.use('/api/alert',Createalert)
 app.use('/api/deletealert',deletealert)
 app.use('/api/getAlert',getAlert)
+app.use('/api/post_contactDetails',postContactDetails)
 app.use('/api/get-form-submissions',GetContactDetails)
 
 //test
