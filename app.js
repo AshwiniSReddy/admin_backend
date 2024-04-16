@@ -34,6 +34,9 @@ const cron = require('node-cron');
 // const FormDetails=require('./routes/Formdetails/InsertData')
 const GetContactDetails=require('./routes/Formdetails/Getcontactdetails')
 const postContactDetails=require('./routes/Formdetails/InsertData')
+const deleteandUpdateContactinHistory=require('./routes/Formdetails/deleteContactDetail')
+const FormHistory=require('./routes/Formdetails/FormHistory')
+const DeleteContactHistory=require('./routes/Formdetails/DeteleContactHistory')
 
 //test
 const Admin_test=require('./routes/AdminTest/Admin')
@@ -124,6 +127,9 @@ app.use('/api/deletealert',deletealert)
 app.use('/api/getAlert',getAlert)
 app.use('/api/post_contactDetails',postContactDetails)
 app.use('/api/get-form-submissions',GetContactDetails)
+app.use('/api/deleteContact-upadate-in-history',deleteandUpdateContactinHistory)
+app.use('/api/form-history',FormHistory)
+app.use('/api/deleteContactHistory',DeleteContactHistory);
 
 //test
 
