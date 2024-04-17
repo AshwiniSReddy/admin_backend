@@ -3,9 +3,9 @@ const passport = require("passport");
 const dotenv = require("dotenv")
 dotenv.config();
 
-const Client_Url = process.env.CLIENT_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 console.log("WIthin auth")
-console.log(Client_Url,"-----")
+console.log("-----")
 router.get("/login/success", (req, res) => {
 	console.log("user login ")
 	if (req.user) {
@@ -34,7 +34,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: `${Client_Url}`,
+		successRedirect: `${process.env.CLIENT_URL}`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
