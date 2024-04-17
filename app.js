@@ -69,7 +69,8 @@ app.use(
     cookieSession({
         name: "session",
         keys: ["cyberwolve"],
-        maxAge: 24 * 60 * 60 * 1000 // Corrected to 24 hours in milliseconds
+        maxAge: 24 * 60 * 60 * 1000, // Corrected to 24 hours in milliseconds
+        
     })
 );
 
@@ -130,7 +131,7 @@ app.use('/api/get-form-submissions',GetContactDetails)
 app.use('/api/deleteContact-upadate-in-history',deleteandUpdateContactinHistory)
 app.use('/api/form-history',FormHistory)
 app.use('/api/deleteContactHistory',DeleteContactHistory);
-
+app.use('/api/auth',authRoute)
 //test
 
 app.use("/api/admin_test",Admin_test);

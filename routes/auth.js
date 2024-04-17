@@ -7,7 +7,7 @@ const Client_Url = process.env.CLIENT_URL;
 console.log("WIthin auth")
 console.log(Client_Url,"-----")
 router.get("/login/success", (req, res) => {
-	
+	console.log("user login ")
 	if (req.user) {
 		res.status(200).json({
 			error: false,
@@ -34,10 +34,21 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: Client_Url,
+		successRedirect: `${Client_Url}`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
+
+// Endpoint to check user session
+router.get("/check", (req, res) => {
+    if (req.user) {
+		console.log(req.user,"user")
+        res.status(200).json({ isLoggedIn: true, user: req.user });
+    } else {
+        res.status(200).json({ isLoggedIn: false });
+    }
+});
+
 
 router.get("/logout", (req, res) => {
 	req.logout();
