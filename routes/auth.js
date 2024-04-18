@@ -5,7 +5,7 @@ dotenv.config();
 
 const Client_Url = process.env.CLIENT_URL;
 console.log("WIthin auth")
-console.log(Client_Url,"-----")
+console.log(Client_Url, "-----")
 router.get("/login/success", (req, res) => {
 	console.log("user login ")
 	if (req.user) {
@@ -16,37 +16,44 @@ router.get("/login/success", (req, res) => {
 		});
 	} else {
 		res.status(403).json({ error: true, message: "Not Authorized" });
+		console.log(error)
 	}
 });
 
 router.get("/login/failed", (req, res) => {
 	res.status(401).json({
-		
+
 		error: true,
 		message: "Log in failure",
 	});
 });
 
-router.get("/google", passport.authenticate("google", ["profile", "email"]));
+// router.get("/google", passport.authenticate("google", ["profile", "email"]));
+router.get("/google", passport.authenticate("google", {
+	scope: ["profile", "email"],
+	successRedirect: `${Client_Url}Dashboard`,
+	failureRedirect: "https://paramscience.org/"
+}));
+
 
 
 router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: `${Client_Url}`,
+		successRedirect: Client_Url,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
 
 // Endpoint to check user session
 router.get("/check", (req, res) => {
-    if (req.user) {
-		console.log(req.user,"user")
-        res.status(200).json({ isLoggedIn: true, user: req.user });
-    } else {
-        res.status(200).json({ isLoggedIn: false });
-    }
+	if (req.user) {
+		console.log(req.user, "user")
+		res.status(200).json({ isLoggedIn: true, user: req.user });
+	} else {
+		res.status(200).json({ isLoggedIn: false });
+	}
 });
 
 
