@@ -31,7 +31,7 @@ router.get("/login/failed", (req, res) => {
 // router.get("/google", passport.authenticate("google", ["profile", "email"]));
 router.get("/google", passport.authenticate("google", {
 	scope: ["profile", "email"],
-	successRedirect: `${Client_Url}Dashboard`,
+	successRedirect: `${process.env.CLIENT_URL}Dashboard`,
 	failureRedirect: "https://paramscience.org/"
 }));
 
@@ -41,7 +41,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: `${process.env.CLIENT_URL}`,
+		successRedirect: `${process.env.CLIENT_URL}Dashboard`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
