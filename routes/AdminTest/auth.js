@@ -34,7 +34,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: Client_Url,
+		successRedirect: `${Client_Url}Dashboard`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
