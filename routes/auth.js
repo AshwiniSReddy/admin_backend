@@ -16,7 +16,7 @@ router.get("/login/success", (req, res) => {
 		});
 	} else {
 		res.status(403).json({ error: true, message: "Not Authorized" });
-		console.log(error)
+		console.log("403 error")
 	}
 });
 
@@ -41,7 +41,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: `https://admin.dashboard.paramscience.org/Dashboard`,
+		successRedirect: `http://localhost:3000/Dashboard`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
@@ -59,7 +59,7 @@ router.get("/check", (req, res) => {
 
 router.get("/logout", (req, res) => {
 	req.logout();
-	res.redirect(Client_Url);
+	res.redirect(CLIENT_URL);
 });
 
 module.exports = router;
