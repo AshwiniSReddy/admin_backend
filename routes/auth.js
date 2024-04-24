@@ -41,7 +41,7 @@ router.get(
 	"/google/callback",
 
 	passport.authenticate("google", {
-		successRedirect: `http://localhost:3000/Dashboard`,
+		successRedirect: `https://admin.dashboard.paramscience.org/Dashboard`,
 		failureRedirect: "https://paramscience.org/",
 	})
 );
