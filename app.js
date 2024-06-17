@@ -81,7 +81,7 @@ const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the director
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000", // Allow all origins for simplicity. Adjust as necessary.
+    origin: "https://admindashboard.paramscience.org", // Allow all origins for simplicity. Adjust as necessary.
     methods: ["GET", "POST"]
   }
 });
