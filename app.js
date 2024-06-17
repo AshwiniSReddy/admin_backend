@@ -81,7 +81,15 @@ const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the director
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "https://admindashboard.paramscience.org", // Allow all origins for simplicity. Adjust as necessary.
+    origin: [
+      'http://localhost:3000',
+      'https://paramscience.org',
+      'https://admindashboard.paramscience.org',
+      'http://ec2-13-233-173-240.ap-south-1.compute.amazonaws.com',
+      'http://dashboardadmin.s3-website.ap-south-1.amazonaws.com',
+      'https://www.paramscience.org',
+      'https://admin.dashboard.paramscience.org'
+    ],
     methods: ["GET", "POST"]
   }
 });
