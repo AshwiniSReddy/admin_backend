@@ -1,0 +1,24 @@
+# .github/workflows/invalidate-cloudfront.yml
+name: Invalidate CloudFront Cache
+
+on:
+  workflow_dispatch:
+    inputs:
+      invalidateCache:
+        description: 'Invalidate CloudFront cache'
+        required: true
+        default: 'false'
+
+jobs:
+  invalidateCache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+      
+      - name: Invalidate CloudFront Distribution
+        run: aws cloudfront create-invalidation --distribution-id E16V1H4AZTFG26 --paths "/*"
