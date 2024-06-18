@@ -230,7 +230,7 @@ app.use('/api/formHistory_test',formHistory_test)
 
 
 
-server.listen(process.env.PORT, async () => {
+app.listen(process.env.PORT, async () => {
   await connectDB();
   console.log(`Ther server is up at ${process.env.PORT}`)
 })
