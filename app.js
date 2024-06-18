@@ -91,9 +91,9 @@ const io = socketIo(server, {
       'https://admin.dashboard.paramscience.org'
     ],
     methods: ["GET", "POST"],
-    credentials: true,
-    transports: ["websocket", "polling"]
-  }
+    
+  },
+  transports: ['websocket', 'polling'],
 });
 
 app.use(express.json()); // For parsing application/json
