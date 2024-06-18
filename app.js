@@ -83,6 +83,7 @@ const io = socketIo(server, {
   cors: {
     origin: ["https://admin.dashboard.paramscience.org", "https://admindashboard.paramscience.org"],
     methods: ["GET", "POST"],
+    credentials: true
     
   },
   // transports: ['websocket', 'polling'],
