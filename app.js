@@ -93,7 +93,7 @@ const io = socketIo(server, {
     methods: ["GET", "POST"],
     
   },
-  transports: ['websocket', 'polling'],
+  // transports: ['websocket', 'polling'],
 });
 
 app.use(express.json()); // For parsing application/json
