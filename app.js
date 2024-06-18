@@ -80,13 +80,14 @@ const path = require('path');
 const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the directory of the current module
 const server = http.createServer(app);
 const io = socketIo(server, {
+  serveClient: true,
   cors: {
     origin: ["https://admin.dashboard.paramscience.org", "https://admindashboard.paramscience.org"],
     methods: ["GET", "POST"],
     credentials: true
     
   },
-  // transports: ['websocket', 'polling'],
+ 
 });
 
 app.use(express.json()); // For parsing application/json
