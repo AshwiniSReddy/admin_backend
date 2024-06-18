@@ -90,7 +90,9 @@ const io = socketIo(server, {
       'https://www.paramscience.org',
       'https://admin.dashboard.paramscience.org'
     ],
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true,
+    transports: ["websocket", "polling"]
   }
 });
 
