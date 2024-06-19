@@ -80,14 +80,10 @@ const path = require('path');
 const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the directory of the current module
 const server = http.createServer(app);
 const io = socketIo(server, {
-  serveClient: true,
   cors: {
-    origin: ["https://admin.dashboard.paramscience.org", "https://admindashboard.paramscience.org"],
-    methods: ["GET", "POST"],
-    credentials: true
-    
-  },
- 
+    origin: process.env.CLIENT_URL, // Allow all origins for simplicity. Adjust as necessary.
+    methods: ["GET", "POST"]
+  }
 });
 
 app.use(express.json()); // For parsing application/json
@@ -230,8 +226,9 @@ app.use('/api/formHistory_test',formHistory_test)
 
 
 
-app.listen(process.env.PORT, async () => {
+server.listen(process.env.PORT, async () => {
   await connectDB();
+  console.log(server)
   console.log(`Ther server is up at ${process.env.PORT}`)
 })
 
