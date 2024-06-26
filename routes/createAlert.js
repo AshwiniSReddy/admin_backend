@@ -15,7 +15,11 @@ router.post('/', async (req, res) => {
             { message: message },
             { new: true, upsert: true } // Options to return the updated document and create a new one if it doesn't exist
         );
+<<<<<<< HEAD
         // await trigger();
+=======
+        await trigger();
+>>>>>>> c162da0325602faaf17b0b456da2461c12b75281
         res.json(alert);
     } catch (error) {
         console.error('Failed to update or create alert message:', error);
@@ -23,4 +27,10 @@ router.post('/', async (req, res) => {
     }
 });
 
+<<<<<<< HEAD
 module.exports = router;
+=======
+module.exports = router;
+
+//ncjhj
+>>>>>>> c162da0325602faaf17b0b456da2461c12b75281

@@ -10,7 +10,6 @@ router.get("/login/success", (req, res) => {
 	console.log("user login ")
 	if (req.user) {
 		try{
-			console.log(req.user)
 			res.status(200).json({
 				error: false,
 				message: "Successfully Loged In",
@@ -22,7 +21,7 @@ router.get("/login/success", (req, res) => {
 		
 	} else {
 		res.status(403).json({ error: true, message: req.user });
-		console.log(req.user)
+		console.log("403 error")
 	}
 });
 
@@ -37,7 +36,7 @@ router.get("/login/failed", (req, res) => {
 // router.get("/google", passport.authenticate("google", ["profile", "email"]));
 router.get("/google", passport.authenticate("google", {
 	scope: ["profile", "email"],
-	successRedirect: `https://admin.dashboard.paramscience.org/Dashboard`,
+	successRedirect: `${process.env.CLIENT_URL}Dashboard`,
 	failureRedirect: "https://paramscience.org/"
 }));
 

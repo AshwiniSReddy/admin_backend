@@ -7,9 +7,14 @@ const Client_Url = process.env.CLIENT_URL;
 console.log("WIthin auth")
 console.log(Client_Url,"-----")
 router.get("/login/success", (req, res) => {
+<<<<<<< HEAD
 	console.log(req.user,"requested user")
 	if (req.user) {
 
+=======
+	
+	if (req.user) {
+>>>>>>> c162da0325602faaf17b0b456da2461c12b75281
 		res.status(200).json({
 			error: false,
 			message: "Successfully Loged In",
