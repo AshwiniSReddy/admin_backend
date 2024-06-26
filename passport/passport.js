@@ -15,11 +15,7 @@ passport.use(
 
         },
         function(accessToken,refreshToken,profile,callback){
-<<<<<<< HEAD
-        //   console.log(callback,profile)
-=======
           console.log(callback,profile)
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
             callback(null,profile)
         }
     )

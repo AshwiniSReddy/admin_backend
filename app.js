@@ -10,10 +10,7 @@ const connectDB = require("./connectDb/connect");
 const Admin_Route = require('./routes/Admin')
 const http = require('http');
 const socketIo = require('socket.io');
-<<<<<<< HEAD
 const session=require('express-session');
-=======
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
 
 const history = require('./routes/history')
 const edit = require('./routes/edit')
@@ -70,13 +67,8 @@ const deleteContactDetails_test=require('./routes/AdminTest/deleteContactDetails
 const deleteContactHistory_test=require('./routes/AdminTest/deleteContactHistory')
 const getContactDetails_test=require('./routes/AdminTest/getContactdetails');
 const insertContact_test=require('./routes/AdminTest/insertContact')
-<<<<<<< HEAD
-// const deleteContactActivity=require('./routes/deleteContactdetailsActivity')
-// const deletContactHistoryActivity=require('./routes/deleteContactHistoryActivity')
-=======
 const formHistory_test=require('./routes/AdminTest/formHistory')
 
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
 
 
 const app = express();
@@ -90,11 +82,7 @@ const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the director
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-<<<<<<< HEAD
-    origin: "https://admin.dashboard.paramscience.org/", // Allow all origins for simplicity. Adjust as necessary.
-=======
     origin:'https://admin.dashboard.paramscience.org', // Allow all origins for simplicity. Adjust as necessary.
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
     methods: ["GET", "POST"]
   }
 });
@@ -107,7 +95,6 @@ fs.mkdirSync(uploadsDir, { recursive: true });
 
 dotenv.config();
 
-<<<<<<< HEAD
 // app.use(
 //   cookieSession({
 //     name: "session",
@@ -122,16 +109,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-=======
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["cyberwolve"],
-    maxAge: 24 * 60 * 60 * 1000, // Corrected to 24 hours in milliseconds
-
-  })
-);
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
 
 
 
@@ -248,10 +225,7 @@ app.use('/api/deleteConatactDetails_test',deleteContactDetails_test)
 app.use('/api/deleteContactHistory_test',deleteContactHistory_test)
 app.use('/api/getContactdetails_test',getContactDetails_test)
 app.use('/api/insertContact_test',insertContact_test)
-<<<<<<< HEAD
-=======
 app.use('/api/formHistory_test',formHistory_test)
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
 
 
 
@@ -261,10 +235,7 @@ app.use('/api/formHistory_test',formHistory_test)
 
 server.listen(process.env.PORT, async () => {
   await connectDB();
-<<<<<<< HEAD
-=======
   console.log(server)
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
   console.log(`Ther server is up at ${process.env.PORT}`)
 })
 

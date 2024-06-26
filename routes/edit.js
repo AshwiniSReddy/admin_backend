@@ -33,11 +33,7 @@ router.patch('/:id', upload.single('photoVideo'), async (req, res) => {
     // Find the document by ID and update it
     const updatedAdmin = await Admin.findByIdAndUpdate(adminId, updateData, { new: true }); // { new: true } to return the updated document
     console.log("About to trigger the workflow");
-<<<<<<< HEAD
-    // await trigger();
-=======
     await trigger();
->>>>>>> c162da0325602faaf17b0b456da2461c12b75281
     console.log("Workflow trigger attempt made");
     if (!updatedAdmin) {
       return res.status(404).send('The admin with the given ID was not found.');
