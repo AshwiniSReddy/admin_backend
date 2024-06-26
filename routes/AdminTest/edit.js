@@ -7,6 +7,7 @@ const trigger=require('../../mongotrigger/Trigger')
 router.patch('/:id', upload.single('photoVideo'), async (req, res) => {
   try {
     const adminId = req.params.id;
+    console.log(adminId,"admin")
     console.log(req.params)
     const updateData = req.body;
 
@@ -26,7 +27,7 @@ router.patch('/:id', upload.single('photoVideo'), async (req, res) => {
     }
     if (Array.isArray(req.body.endTime)) {
       // If 'time' is an array, use only the first element
-      req.body.time = req.body.endTime[0];
+      req.body.endTime = req.body.endTime[0];
     }
 
 

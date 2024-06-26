@@ -1,8 +1,8 @@
 // adminRoutes.js
 const express = require('express');
 const router = express.Router();
-const Alert= require('../models/alert'); // Adjust the path according to your project structure
-const trigger=require('../mongotrigger/Trigger')
+const Alert= require('../../models/AlertTest'); // Adjust the path according to your project structure
+
 // POST route for /admin
 // Example using Express and Mongoose
 // POST route for /admin to update or create an alert message

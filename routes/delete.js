@@ -21,7 +21,7 @@ router.delete('/:id', async (req, res) => {
                 message: 'Admin not found with id ' + adminId,
             });
         }
-        await trigger();
+        // await trigger();
         // If delete was successful, return success response
         res.status(200).json({
             message: 'Admin successfully deleted',

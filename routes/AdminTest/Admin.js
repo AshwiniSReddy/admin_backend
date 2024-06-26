@@ -77,7 +77,7 @@ router.post('/', uploadFields, async (req, res) => {
         });
 
         await newAdminEntry.save();
-        await trigger();
+        // await trigger();
          
         res.status(201).json({
             message: 'Data and files saved successfully!',

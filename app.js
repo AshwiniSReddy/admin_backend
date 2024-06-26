@@ -9,7 +9,8 @@ const Admin_main = require('./models/Admin'); // Import the Feedback model
 const connectDB = require("./connectDb/connect");
 const Admin_Route = require('./routes/Admin')
 const http = require('http');
-const { Server } = require("socket.io");
+const socketIo = require('socket.io');
+const session=require('express-session');
 
 const history = require('./routes/history')
 const edit = require('./routes/edit')
@@ -40,6 +41,12 @@ const deleteandUpdateContactinHistory = require('./routes/Formdetails/deleteCont
 const FormHistory = require('./routes/Formdetails/FormHistory')
 const DeleteContactHistory = require('./routes/Formdetails/DeteleContactHistory')
 
+const createAlertActivity=require('./routes/createAlertActivity')
+const deleteAlertACtivity=require('./routes/deleteAlertActivity')
+const deleteContactActivity=require('./routes/deleteContactdetailsActivity')
+const deleteContactHistoryActivity=require('./routes/deleteContactHistoryActivity')
+
+
 //test
 const Admin_test = require('./routes/AdminTest/Admin')
 const recentEvents_test = require('./routes/AdminTest/recentevents')
@@ -49,6 +56,20 @@ const fetchwithId_test = require('./routes/AdminTest/fetchbyid')
 const deletedata_test = require('./routes/AdminTest/delete')
 const edit_test = require('./routes/AdminTest/edit')
 const history_test = require('./routes/AdminTest/history')
+const ActivityFeed=require('./models/Activity')
+const CreateEventActivity=require('./routes/CreateEventActivity')
+const createDeleteActivity=require('./routes/deleteEventActivity')
+const EditEventActivity=require('./routes/EditEventActivity')
+const createAlert_test=require('./routes/AdminTest/CreateAlert');
+const deleteAlert_test=require('./routes/AdminTest/deleteAlert')
+const getAlert_test=require('./routes/AdminTest/getAlert')
+const deleteContactDetails_test=require('./routes/AdminTest/deleteContactDetails');
+const deleteContactHistory_test=require('./routes/AdminTest/deleteContactHistory')
+const getContactDetails_test=require('./routes/AdminTest/getContactdetails');
+const insertContact_test=require('./routes/AdminTest/insertContact')
+// const deleteContactActivity=require('./routes/deleteContactdetailsActivity')
+// const deletContactHistoryActivity=require('./routes/deleteContactHistoryActivity')
+
 
 const app = express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -59,7 +80,12 @@ const path = require('path');
 
 const uploadsDir = path.join(__dirname, 'uploads'); // __dirname is the directory of the current module
 const server = http.createServer(app);
-const io = new Server(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "https://admin.dashboard.paramscience.org/", // Allow all origins for simplicity. Adjust as necessary.
+    methods: ["GET", "POST"]
+  }
+});
 
 app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
@@ -69,20 +95,25 @@ fs.mkdirSync(uploadsDir, { recursive: true });
 
 dotenv.config();
 
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["cyberwolve"],
-    maxAge: 24 * 60 * 60 * 1000, // Corrected to 24 hours in milliseconds
+// app.use(
+//   cookieSession({
+//     name: "session",
+//     keys: ["cyberwolve"],
+//     maxAge: 24 * 60 * 60 * 1000, // Corrected to 24 hours in milliseconds
 
-  })
-);
+//   })
+// );
+
+app.use(session({
+  secret:"sessionsecret",
+  resave: false,
+  saveUninitialized: true
+}))
 
 
 
 const corsOptionsDelegate = function (req, callback) {
   let allowedOrigins = [
-    process.env.CLIENT_URL,
     'http://localhost:3000',
     'https://paramscience.org',
     'https://admindashboard.paramscience.org',
@@ -127,6 +158,12 @@ io.on('connection', (socket) => {
     console.log('Record deleted with ID:', id);
     socket.broadcast.emit('record_deleted', id); // Broadcast to all other clients
   });
+
+   // Fetch and send all activities to the new user
+   ActivityFeed.find().sort({ timestamp: -1 }).limit(10).then(activities => {
+    socket.emit('init-activities', activities);
+  });
+
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
@@ -164,6 +201,14 @@ app.use('/api/deleteContact-upadate-in-history', deleteandUpdateContactinHistory
 app.use('/api/form-history', FormHistory)
 app.use('/api/deleteContactHistory', DeleteContactHistory);
 app.use('/api/auth', authRoute)
+app.use('/api/CreateEventActivity',CreateEventActivity)
+app.use('/api/deleteEventActivity',createDeleteActivity)
+app.use('/api/editEventActivity',EditEventActivity)
+app.use('/api/createAlertActivity',createAlertActivity)
+app.use('/api/deleteAlertActivity',deleteAlertACtivity)
+app.use('/api/deleteContactDetailsActivity',deleteContactActivity)
+app.use('/api/deleteContactHistoryActivity',deleteContactHistoryActivity)
+
 //test apis
 
 app.use("/api/admin_test", Admin_test);
@@ -171,18 +216,23 @@ app.use('/api/history_test', history_test)
 app.use('/api/recentEvents_test', recentEvents_test)
 app.use('/api/edit_test', edit_test)
 app.use('/api/delete_test', deletedata_test)
-
 app.use('/api/latestThree_test', latestThree_test)
-
-
-
 app.use('/api/fetchbyid_test', fetchwithId_test)
+app.use('/api/getAlert_test',getAlert_test)
+app.use('/api/createAlert_test',createAlert_test)
+app.use('/api/deleteAlert_test',deleteAlert_test)
+app.use('/api/deleteConatactDetails_test',deleteContactDetails_test)
+app.use('/api/deleteContactHistory_test',deleteContactHistory_test)
+app.use('/api/getContactdetails_test',getContactDetails_test)
+app.use('/api/insertContact_test',insertContact_test)
 
 
 
 
 
-app.listen(process.env.PORT, async () => {
+
+
+server.listen(process.env.PORT, async () => {
   await connectDB();
   console.log(`Ther server is up at ${process.env.PORT}`)
 })

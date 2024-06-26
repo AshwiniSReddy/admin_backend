@@ -51,6 +51,7 @@ const Aws = require('aws-sdk')
 const fs = require('fs'); // Required to read files from the filesystem
 const dotenv = require("dotenv")
 const trigger=require('../mongotrigger/Trigger')
+
 dotenv.config();
 
 const s3 = new Aws.S3({
@@ -118,7 +119,7 @@ router.post('/', uploadFields, async (req, res) => {
         });
 
         await newAdminEntry.save();
-        await trigger();
+        // await trigger();
          
         res.status(201).json({
             message: 'Data and files saved successfully!',
