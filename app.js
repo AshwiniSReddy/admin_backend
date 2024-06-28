@@ -83,7 +83,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin:'https://admin.dashboard.paramscience.org', // Allow all origins for simplicity. Adjust as necessary.
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
