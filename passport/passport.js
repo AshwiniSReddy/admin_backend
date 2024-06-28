@@ -17,6 +17,7 @@ passport.use(
         function(accessToken,refreshToken,profile,callback){
           console.log(callback,profile)
             callback(null,profile)
+            return callback(null,profile)
         }
     )
 )

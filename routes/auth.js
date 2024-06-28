@@ -2,11 +2,12 @@ const router = require("express").Router();
 const passport = require("passport");
 const dotenv = require("dotenv")
 dotenv.config();
+const isAuthenticated = require('../middleware/authmiddleware'); // Import the middleware
 
 const CLIENT_URL = process.env.CLIENT_URL;
 console.log("WIthin auth")
 console.log("-----")
-router.get("/login/success", (req, res) => {
+router.get("/login/success",isAuthenticated, (req, res) => {
 	console.log("user login ")
 	if (req.user) {
 		try{
